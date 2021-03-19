@@ -1,17 +1,20 @@
 ---
 - hosts: webserver
   become: true
-  - name: Installing apache on webserver
-    yum:
-      name: apache
-      state: latest
+  tasks:
+    - name: Installing apache on webserver
+      yum:
+        name: httpd
+        state: present
       
-  - name: Starting apache service
-    service:
-      name: httpd
-      state: started
-  - name: copy index.html
-    copy:
-      src: index.html
-      dest: /var/www/html
+    - name: Starting apache service
+      service:
+        name: httpd
+        state: started
+        enabled: true
+        
+    - name: copy index.html
+      copy:
+        src: index.html
+        dest: /var/www/html
    
