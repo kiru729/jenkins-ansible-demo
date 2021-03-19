@@ -1,0 +1,17 @@
+---
+- hosts: webserver
+  become=true
+  - name: Installing apache on webserver
+    yum:
+      name: apache
+      state: latest
+      
+  - name: Starting apache service
+    service:
+      name: httpd
+      state: started
+  - name: copy index.html
+    copy:
+      src: index.html
+      dest: /var/www/html
+   
